@@ -96,3 +96,18 @@ def quadratic_formula(a, b, c):
     plus_answer = (neg_b + sqrt_det)/two_a
     neg_answer = (neg_b - sqrt_det)/two_a
     return [plus_answer, neg_answer]
+
+def add_recursive(a, b):
+    if b == 0:
+        return a
+    else:
+        return 1 + add_recursive(a, b - 1)
+
+def ee16bhw4prob2partc():
+    R = 250
+    L = 100e-6
+    C = 100e-6
+    a = (R*L*C)**2
+    b = -2*L*((R**2)*C+L)
+    c = R**2+L**2
+    return quadratic_formula(a, b, c)
