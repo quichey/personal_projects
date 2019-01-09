@@ -12,10 +12,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="WeightedDisjointedSetsTreeHeightTests.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="WeightedDisjointedSetsTreeHeightTests.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/DisjointedSets/WeightedDisjointedSetsTreeHeightTests.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="532">
+            <state relative-caret-position="870">
               <caret line="58" column="60" lean-forward="false" selection-start-line="58" selection-start-column="60" selection-end-line="58" selection-end-column="60" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -24,18 +24,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WeightedDisjointedSetsTreeHeight.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="WeightedDisjointedSetsTreeHeight.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/DisjointedSets/WeightedDisjointedSetsTreeHeight.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="975">
+            <state relative-caret-position="315">
               <caret line="69" column="15" lean-forward="false" selection-start-line="69" selection-start-column="15" selection-end-line="69" selection-end-column="15" />
               <folding>
-                <element signature="e#1455#1456#0" expanded="true" />
-                <element signature="e#1498#1499#0" expanded="true" />
-                <element signature="e#1859#1860#0" expanded="true" />
-                <element signature="e#1904#1905#0" expanded="true" />
-                <element signature="e#1937#1938#0" expanded="true" />
-                <element signature="e#1967#1968#0" expanded="true" />
+                <element signature="docComment;class#WeightedDisjointedSetsTreeHeight#0" expanded="false" />
+                <element signature="method#WeightedDisjointedSetsTreeHeight#0;class#WeightedDisjointedSetsTreeHeight#0" expanded="false" />
+                <element signature="method#connect#0;class#WeightedDisjointedSetsTreeHeight#0" expanded="false" />
+                <element signature="docComment;method#find#0;class#WeightedDisjointedSetsTreeHeight#0" expanded="false" />
+                <element signature="method#find#0;class#WeightedDisjointedSetsTreeHeight#0" expanded="false" />
+                <element signature="method#getHeights#0;class#WeightedDisjointedSetsTreeHeight#0" expanded="false" />
+                <element signature="docComment;method#height#0;class#WeightedDisjointedSetsTreeHeight#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -66,8 +67,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="197" />
-    <option name="y" value="33" />
+    <option name="x" value="99" />
+    <option name="y" value="26" />
     <option name="width" value="1341" />
     <option name="height" value="812" />
   </component>
@@ -88,7 +89,6 @@
     <panes>
       <pane id="Scope" />
       <pane id="Scratches" />
-      <pane id="PackagesPane" />
       <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
@@ -112,6 +112,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -319,7 +320,7 @@
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="197" y="33" width="1341" height="812" extended-state="0" />
+    <frame x="99" y="26" width="1341" height="812" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -335,7 +336,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25327176" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25712085" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -359,6 +360,32 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/DisjointedSets/WeightedDisjointedSetsTreeHeight.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1035">
+          <caret line="69" column="15" lean-forward="false" selection-start-line="69" selection-start-column="15" selection-end-line="69" selection-end-column="15" />
+          <folding>
+            <element signature="docComment;class#WeightedDisjointedSetsTreeHeight#0" expanded="false" />
+            <element signature="method#WeightedDisjointedSetsTreeHeight#0;class#WeightedDisjointedSetsTreeHeight#0" expanded="false" />
+            <element signature="method#connect#0;class#WeightedDisjointedSetsTreeHeight#0" expanded="false" />
+            <element signature="docComment;method#find#0;class#WeightedDisjointedSetsTreeHeight#0" expanded="false" />
+            <element signature="method#find#0;class#WeightedDisjointedSetsTreeHeight#0" expanded="false" />
+            <element signature="method#getHeights#0;class#WeightedDisjointedSetsTreeHeight#0" expanded="false" />
+            <element signature="docComment;method#height#0;class#WeightedDisjointedSetsTreeHeight#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DisjointedSets/WeightedDisjointedSetsTreeHeightTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="870">
+          <caret line="58" column="60" lean-forward="false" selection-start-line="58" selection-start-column="60" selection-end-line="58" selection-end-column="60" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/DisjointedSets/WeightedDisjointedSetsTreeHeightTests.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -374,37 +401,39 @@
         <state relative-caret-position="975">
           <caret line="69" column="15" lean-forward="false" selection-start-line="69" selection-start-column="15" selection-end-line="69" selection-end-column="15" />
           <folding>
-            <element signature="e#1455#1456#0" expanded="true" />
-            <element signature="e#1498#1499#0" expanded="true" />
-            <element signature="e#1859#1860#0" expanded="true" />
-            <element signature="e#1904#1905#0" expanded="true" />
-            <element signature="e#1937#1938#0" expanded="true" />
-            <element signature="e#1967#1968#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/DisjointedSets/WeightedDisjointedSetsTreeHeight.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="975">
-          <caret line="69" column="15" lean-forward="false" selection-start-line="69" selection-start-column="15" selection-end-line="69" selection-end-column="15" />
-          <folding>
-            <element signature="e#1455#1456#0" expanded="true" />
-            <element signature="e#1498#1499#0" expanded="true" />
-            <element signature="e#1859#1860#0" expanded="true" />
-            <element signature="e#1904#1905#0" expanded="true" />
-            <element signature="e#1937#1938#0" expanded="true" />
-            <element signature="e#1967#1968#0" expanded="true" />
+            <element signature="docComment;class#WeightedDisjointedSetsTreeHeight#0" expanded="false" />
+            <element signature="method#WeightedDisjointedSetsTreeHeight#0;class#WeightedDisjointedSetsTreeHeight#0" expanded="false" />
+            <element signature="method#connect#0;class#WeightedDisjointedSetsTreeHeight#0" expanded="false" />
+            <element signature="docComment;method#find#0;class#WeightedDisjointedSetsTreeHeight#0" expanded="false" />
+            <element signature="method#find#0;class#WeightedDisjointedSetsTreeHeight#0" expanded="false" />
+            <element signature="method#getHeights#0;class#WeightedDisjointedSetsTreeHeight#0" expanded="false" />
+            <element signature="docComment;method#height#0;class#WeightedDisjointedSetsTreeHeight#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/DisjointedSets/WeightedDisjointedSetsTreeHeightTests.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="532">
+        <state relative-caret-position="870">
           <caret line="58" column="60" lean-forward="false" selection-start-line="58" selection-start-column="60" selection-end-line="58" selection-end-column="60" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DisjointedSets/WeightedDisjointedSetsTreeHeight.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="69" column="15" lean-forward="false" selection-start-line="69" selection-start-column="15" selection-end-line="69" selection-end-column="15" />
+          <folding>
+            <element signature="docComment;class#WeightedDisjointedSetsTreeHeight#0" expanded="false" />
+            <element signature="method#WeightedDisjointedSetsTreeHeight#0;class#WeightedDisjointedSetsTreeHeight#0" expanded="false" />
+            <element signature="method#connect#0;class#WeightedDisjointedSetsTreeHeight#0" expanded="false" />
+            <element signature="docComment;method#find#0;class#WeightedDisjointedSetsTreeHeight#0" expanded="false" />
+            <element signature="method#find#0;class#WeightedDisjointedSetsTreeHeight#0" expanded="false" />
+            <element signature="method#getHeights#0;class#WeightedDisjointedSetsTreeHeight#0" expanded="false" />
+            <element signature="docComment;method#height#0;class#WeightedDisjointedSetsTreeHeight#0" expanded="false" />
           </folding>
         </state>
       </provider>
