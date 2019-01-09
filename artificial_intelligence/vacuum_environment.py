@@ -71,6 +71,33 @@ class VacuumWorld:
 
         return percept
 
+class VacuumWorldMovementPentalty(VacuumWorld):
+    def run(self, agent, start = None):
+        self.initializeRun(start)
+
+        while self.time < 1000:
+            agentAction = agent.program(self.perceive())
+
+            assert agentAction in self.possibleActions, "Invalid action: {0}".format(agentAction)
+            if agentAction == "Right":
+                if self.agentPosition == 0:
+                    self.agentScore -= 1
+
+                self.agentPosition = 1
+            elif agentAction == "Left":
+                if self.agentPosition == 1:
+                    self.agentScore -= 1
+
+                self.agentPosition = 0
+            elif agentAction == "Suck":
+                self.world[self.agentPosition] = 1
+
+            self.agentScore += sum(self.world)
+
+            self.time += 1
+
+        return "Agent Score: {0} points".format(self.agentScore)
+
 class VacuumAgentReflex:
     def program(self, percept):
         if percept[1] == "Dirty":
@@ -87,3 +114,8 @@ environment10 = VacuumWorld([1,0])
 environment00 = VacuumWorld([0,0])
 A = "A"
 B = "B"
+
+environmentPenalty11 = VacuumWorldMovementPentalty([1,1])
+environmentPenalty01 = VacuumWorldMovementPentalty([0,1])
+environmentPenalty10 = VacuumWorldMovementPentalty([1,0])
+environmentPenalty00 = VacuumWorldMovementPentalty([0,0])
