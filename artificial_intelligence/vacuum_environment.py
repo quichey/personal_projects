@@ -19,7 +19,7 @@ class VacuumWorld:
             self.InitialWorld = copy.deepcopy(startingWorld)
 
     def run(self, agent, start = None):
-        self.initializeRun(start)
+        self.initializeRun(agent, start)
 
         while self.time < 1000:
             agentAction = agent.program(self.perceive())
@@ -38,7 +38,7 @@ class VacuumWorld:
 
         return "Agent Score: {0} points".format(self.agentScore)
 
-    def initializeRun(self, start):
+    def initializeRun(self, agent, start):
         self.time = 0
         self.world = copy.deepcopy(self.InitialWorld)
         self.agentScore = 0
@@ -52,6 +52,8 @@ class VacuumWorld:
                 self.agentPosition = 0
             else:
                 self.agentPosition = 1
+
+        agent.initializeState()
 
     def perceive(self):
         percept = []
@@ -73,7 +75,7 @@ class VacuumWorld:
 
 class VacuumWorldMovementPentalty(VacuumWorld):
     def run(self, agent, start = None):
-        self.initializeRun(start)
+        self.initializeRun(agent, start)
 
         while self.time < 1000:
             agentAction = agent.program(self.perceive())
@@ -99,6 +101,9 @@ class VacuumWorldMovementPentalty(VacuumWorld):
         return "Agent Score: {0} points".format(self.agentScore)
 
 class VacuumAgentReflex:
+    def initializeState(self):
+        return
+
     def program(self, percept):
         if percept[1] == "Dirty":
             return "Suck"
@@ -106,6 +111,27 @@ class VacuumAgentReflex:
             return "Right"
         elif percept[0] == "B":
             return "Left"
+
+class VacuumAgentModelBased(VacuumAgentReflex):
+    def initializeState(self):
+        #2 means unexplored
+        self.state = [2, 2]
+
+    def program(self, percept):
+        if percept[0] == "A":
+            self.state[0] = 1
+        elif percept[0] == "B":
+            self.state[1] = 1
+
+        if percept[1] == "Dirty":
+            return "Suck"
+        elif (percept[0] == "A") and (self.state[1] != 1):
+            return "Right"
+        elif (percept[0] == "B") and (self.state[0] != 1):
+            return "Left"
+        else:
+            return None
+
 
 vacuum = VacuumAgentReflex()
 environment11 = VacuumWorld([1,1])
@@ -119,3 +145,5 @@ environmentPenalty11 = VacuumWorldMovementPentalty([1,1])
 environmentPenalty01 = VacuumWorldMovementPentalty([0,1])
 environmentPenalty10 = VacuumWorldMovementPentalty([1,0])
 environmentPenalty00 = VacuumWorldMovementPentalty([0,0])
+
+environmentPenalty00.run(vacuum, A)
