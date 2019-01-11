@@ -144,6 +144,32 @@ class VacuumWorld2D(VacuumWorldMovementPentalty):
     def isObstacle(self, l, w):
         return self.InitialWorld[l][w] == 2
 
+    def isValidMove(self, action):
+        if action == "Suck":
+            return False
+        elif action == "Right":
+            if self.agentPosition[1] < self.worldWidth - 1 and not self.isObstacle(self.agentPosition[0], self.agentPosition[1]+1):
+                return True
+            else:
+                return False
+        elif action == "Left":
+            if self.agentPosition[1] > 0 and not self.isObstacle(self.agentPosition[0], self.agentPosition[1]-1):
+                return True
+            else:
+                return False
+        elif action == "Up":
+            if self.agentPosition[0] > 0 and not self.isObstacle(self.agentPosition[0]-1, self.agentPosition[1]):
+                return True
+            else:
+                return False
+        elif action == "Down":
+            if self.agentPosition[0] < self.worldLength - 1 and not self.isObstacle(self.agentPosition[0]+1, self.agentPosition[1]):
+                return True
+            else:
+                return False
+        else:
+            return False
+
 class VacuumAgentReflex:
     def initializeState(self):
         return
