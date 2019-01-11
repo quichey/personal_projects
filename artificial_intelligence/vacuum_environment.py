@@ -128,7 +128,7 @@ class VacuumWorld2D(VacuumWorldMovementPentalty):
     def validRandomPosition(self):
         positionLength = random.randint(0, self.worldLength)
         positionWidth = random.randint(0, self.worldWidth)
-        while self.InitialWorld[positionLength][positionWidth] == 2:
+        while self.isObstacle(positionLength, positionWidth):
             positionLength = random.randint(0, self.worldLength)
             positionWidth = random.randint(0, self.worldWidth)
         return [positionLength, positionWidth]
@@ -136,10 +136,13 @@ class VacuumWorld2D(VacuumWorldMovementPentalty):
     def validateStartPosition(self, start):
         assert isinstance(start, list) and (len(start) == 2), "Invalid format for starting tile"
         assert (start[0] in range(0, self.worldLength)) and (start[1] in range(0, self.worldWidth)), "Starting tile not in range"
-        assert self.InitialWorld[start[0]][start[1]] != 2, "Starting tile is obstacle"
+        assert not self.isObstacle(start[0], start[1]), "Starting tile is obstacle"
 
     def setToInputStart(self, start):
         self.agentPosition = start
+
+    def isObstacle(self, l, w):
+        return self.InitialWorld[l][w] == 2
 
 class VacuumAgentReflex:
     def initializeState(self):
