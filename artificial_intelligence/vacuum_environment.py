@@ -25,18 +25,24 @@ class VacuumWorld:
             agentAction = agent.program(self.perceive())
 
             assert agentAction in self.possibleActions, "Invalid action: {0}".format(agentAction)
-            if agentAction == "Right":
-                self.agentPosition = 1
-            elif agentAction == "Left":
-                self.agentPosition = 0
-            elif agentAction == "Suck":
-                self.world[self.agentPosition] = 1
+            self.processAction(agentAction)
 
             self.agentScore += sum(self.world)
 
             self.time += 1
 
         return "Agent Score: {0} points".format(self.agentScore)
+
+    def processAction(self, agentAction):
+        self.performAction(agentAction)
+
+    def performAction(self, agentAction):
+        if agentAction == "Right":
+            self.agentPosition = 1
+        elif agentAction == "Left":
+            self.agentPosition = 0
+        elif agentAction == "Suck":
+            self.world[self.agentPosition] = 1
 
     def initializeRun(self, agent, start):
         self.time = 0
@@ -74,31 +80,20 @@ class VacuumWorld:
         return percept
 
 class VacuumWorldMovementPentalty(VacuumWorld):
-    def run(self, agent, start = None):
-        self.initializeRun(agent, start)
+    def processAction(self, agentAction):
+        if self.isValidMove(agentAction):
+            self.agentScore -= 1
+        self.performAction(agentAction)
 
-        while self.time < 1000:
-            agentAction = agent.program(self.perceive())
-
-            assert agentAction in self.possibleActions, "Invalid action: {0}".format(agentAction)
-            if agentAction == "Right":
-                if self.agentPosition == 0:
-                    self.agentScore -= 1
-
-                self.agentPosition = 1
-            elif agentAction == "Left":
-                if self.agentPosition == 1:
-                    self.agentScore -= 1
-
-                self.agentPosition = 0
-            elif agentAction == "Suck":
-                self.world[self.agentPosition] = 1
-
-            self.agentScore += sum(self.world)
-
-            self.time += 1
-
-        return "Agent Score: {0} points".format(self.agentScore)
+    def isValidMove(self, action):
+        if action == "Right":
+            if self.agentPosition == 0:
+                return True
+        elif action == "Left":
+            if self.agentPosition == 1:
+                return True
+        else:
+            return False
 
 class VacuumAgentReflex:
     def initializeState(self):
