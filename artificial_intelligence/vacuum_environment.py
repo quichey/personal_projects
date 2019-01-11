@@ -10,6 +10,7 @@ class VacuumWorld:
         tiles are 0 (for dirty) or 1 (for clean)
         '''
         self.possibleActions = ["Right", "Left", "Suck", None]
+        self.timeSteps = 1000
 
         if not startingWorld:
             self.InitialWorld = []
@@ -21,17 +22,20 @@ class VacuumWorld:
     def run(self, agent, start = None):
         self.initializeRun(agent, start)
 
-        while self.time < 1000:
+        while self.time < self.timeSteps:
             agentAction = agent.program(self.perceive())
 
             assert agentAction in self.possibleActions, "Invalid action: {0}".format(agentAction)
             self.processAction(agentAction)
 
-            self.agentScore += sum(self.world)
+            self.agentScore += self.numCleanSquares()
 
             self.time += 1
 
         return "Agent Score: {0} points".format(self.agentScore)
+
+    def numCleanSquares(self):
+        return sum(self.world)
 
     def processAction(self, agentAction):
         self.performAction(agentAction)
@@ -56,13 +60,13 @@ class VacuumWorld:
     def initializePosition(self, start):
         if not start:
             # 0 means tile A; 1 means tile B
-            self.agentPosition = self.validRandomPosition()
+            self.setValidRandomPosition()
         else:
             self.validateStartPosition(start)
             self.setToInputStart(start)
 
-    def validRandomPosition(self):
-        return random.randint(0, 2)
+    def setValidRandomPosition(self):
+        self.agentPosition = random.randint(0, 2)
 
     def validateStartPosition(self, start):
         assert (start == "A") or (start == "B"), "Starting tile must be \'A\' of \'B\'"
@@ -113,6 +117,7 @@ class VacuumWorld2D(VacuumWorldMovementPentalty):
         self.worldWidth = worldWidth
 
         self.possibleActions = ["Right", "Left", "Up", "Down", "Suck", None]
+        self.timeSteps = 10
 
         if not startingWorld:
             self.InitialWorld = []
@@ -125,13 +130,14 @@ class VacuumWorld2D(VacuumWorldMovementPentalty):
         else:
             self.InitialWorld = copy.deepcopy(startingWorld)
 
-    def validRandomPosition(self):
-        positionLength = random.randint(0, self.worldLength)
-        positionWidth = random.randint(0, self.worldWidth)
-        while self.isObstacle(positionLength, positionWidth):
-            positionLength = random.randint(0, self.worldLength)
-            positionWidth = random.randint(0, self.worldWidth)
-        return [positionLength, positionWidth]
+    def setValidRandomPosition(self):
+        self.setRandomPosition()
+        while self.isObstacle(self.agentPosLen, self.agentPosWid):
+            self.setRandomPosition()
+
+    def setRandomPosition(self):
+        self.agentPosLen = random.randint(0, self.worldLength)
+        self.agentPosWid = random.randint(0, self.worldWidth)
 
     def validateStartPosition(self, start):
         assert isinstance(start, list) and (len(start) == 2), "Invalid format for starting tile"
@@ -139,36 +145,48 @@ class VacuumWorld2D(VacuumWorldMovementPentalty):
         assert not self.isObstacle(start[0], start[1]), "Starting tile is obstacle"
 
     def setToInputStart(self, start):
-        self.agentPosition = start
+        self.agentPosLen = start[0]
+        self.agentPosWid = start[1]
 
     def isObstacle(self, l, w):
         return self.InitialWorld[l][w] == 2
 
     def isValidMove(self, action):
-        if action == "Suck":
+        if action == "Suck" or action == None:
             return False
         elif action == "Right":
-            if self.agentPosition[1] < self.worldWidth - 1 and not self.isObstacle(self.agentPosition[0], self.agentPosition[1]+1):
-                return True
-            else:
-                return False
+            return self.canMoveRight()
         elif action == "Left":
-            if self.agentPosition[1] > 0 and not self.isObstacle(self.agentPosition[0], self.agentPosition[1]-1):
-                return True
-            else:
-                return False
+            return self.canMoveLeft()
         elif action == "Up":
-            if self.agentPosition[0] > 0 and not self.isObstacle(self.agentPosition[0]-1, self.agentPosition[1]):
-                return True
-            else:
-                return False
+            return self.canMoveUp()
         elif action == "Down":
-            if self.agentPosition[0] < self.worldLength - 1 and not self.isObstacle(self.agentPosition[0]+1, self.agentPosition[1]):
-                return True
-            else:
-                return False
-        else:
-            return False
+            return self.canMoveDown()
+
+    def canMoveRight(self):
+        return self.agentPosWid < self.worldWidth - 1 and not self.isObstacle(self.agentPosLen, self.agentPosWid + 1)
+
+    def canMoveLeft(self):
+        return self.agentPosWid > 0 and not self.isObstacle(self.agentPosLen, self.agentPosWid - 1)
+
+    def canMoveUp(self):
+        return self.agentPosLen > 0 and not self.isObstacle(self.agentPosLen - 1, self.agentPosWid)
+
+    def canMoveDown(self):
+        return self.agentPosLen < self.worldLength - 1 and not self.isObstacle(self.agentPosLen + 1, self.agentPosWid)
+
+    def performAction(self, agentAction):
+        if agentAction == "Suck":
+            self.world[self.agentPosLen][self.agentPosWid] = 1
+        elif agentAction == "Right" and self.canMoveRight():
+            self.agentPosWid += 1
+        elif agentAction == "Left" and self.canMoveLeft():
+            self.agentPosWid -= 1
+        elif agentAction == "Up" and self.canMoveUp():
+            self.agentPosLen -= 1
+        elif agentAction == "Down" and self.canMoveDown():
+            self.agentPosLen += 1
+
 
 class VacuumAgentReflex:
     def initializeState(self):
