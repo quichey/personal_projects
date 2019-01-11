@@ -136,6 +136,7 @@ class VacuumWorld2D(VacuumWorldMovementPentalty):
     def validateStartPosition(self, start):
         assert isinstance(start, list) and (len(start) == 2), "Invalid format for starting tile"
         assert (start[0] in range(0, self.worldLength)) and (start[1] in range(0, self.worldWidth)), "Starting tile not in range"
+        assert self.InitialWorld[start[0]][start[1]] != 2, "Starting tile is obstacle"
 
     def setToInputStart(self, start):
         self.agentPosition = start
