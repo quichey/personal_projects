@@ -49,6 +49,11 @@ class VacuumWorld:
         self.world = copy.deepcopy(self.InitialWorld)
         self.agentScore = 0
 
+        self.initializePosition(start)
+
+        agent.initializeState()
+
+    def initializePosition(self, start):
         if not start:
             # 0 means tile A; 1 means tile B
             self.agentPosition = random.randint(0, 2)
@@ -58,8 +63,6 @@ class VacuumWorld:
                 self.agentPosition = 0
             else:
                 self.agentPosition = 1
-
-        agent.initializeState()
 
     def perceive(self):
         percept = []
@@ -94,6 +97,24 @@ class VacuumWorldMovementPentalty(VacuumWorld):
                 return True
         else:
             return False
+
+class VacuumWorld2D(VacuumWorldMovementPentalty):
+    def __init__(self, worldLength, worldWidth, startingWorld = None):
+        self.worldLength = worldLength
+        self.worldWidth = worldWidth
+
+        self.possibleActions = ["Right", "Left", "Up", "Down", "Suck", None]
+
+        if not startingWorld:
+            self.InitialWorld = []
+            for _ in range(worldLength):
+                row = []
+                for _ in range(worldWidth):
+                    #0 means dirty, 1 means clean, 2 means obstacle
+                    row.append(random.randint(0, 3))
+                self.InitialWorld.append(row)
+        else:
+            self.InitialWorld = copy.deepcopy(startingWorld)
 
 class VacuumAgentReflex:
     def initializeState(self):
