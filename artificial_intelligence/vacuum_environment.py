@@ -56,13 +56,22 @@ class VacuumWorld:
     def initializePosition(self, start):
         if not start:
             # 0 means tile A; 1 means tile B
-            self.agentPosition = random.randint(0, 2)
+            self.agentPosition = self.validRandomPosition()
         else:
-            assert (start == "A") or (start == "B"), "Starting tile must be \'A\' of \'B\'"
-            if start == "A":
-                self.agentPosition = 0
-            else:
-                self.agentPosition = 1
+            self.validateStartPosition(start)
+            self.setToInputStart(start)
+
+    def validRandomPosition(self):
+        return random.randint(0, 2)
+
+    def validateStartPosition(self, start):
+        assert (start == "A") or (start == "B"), "Starting tile must be \'A\' of \'B\'"
+
+    def setToInputStart(self, start):
+        if start == "A":
+            self.agentPosition = 0
+        else:
+            self.agentPosition = 1
 
     def perceive(self):
         percept = []
@@ -115,6 +124,21 @@ class VacuumWorld2D(VacuumWorldMovementPentalty):
                 self.InitialWorld.append(row)
         else:
             self.InitialWorld = copy.deepcopy(startingWorld)
+
+    def validRandomPosition(self):
+        positionLength = random.randint(0, self.worldLength)
+        positionWidth = random.randint(0, self.worldWidth)
+        while self.InitialWorld[positionLength][positionWidth] == 2:
+            positionLength = random.randint(0, self.worldLength)
+            positionWidth = random.randint(0, self.worldWidth)
+        return [positionLength, positionWidth]
+
+    def validateStartPosition(self, start):
+        assert isinstance(start, list) and (len(start) == 2), "Invalid format for starting tile"
+        assert (start[0] in range(0, self.worldLength)) and (start[1] in range(0, self.worldWidth)), "Starting tile not in range"
+
+    def setToInputStart(self, start):
+        self.agentPosition = start
 
 class VacuumAgentReflex:
     def initializeState(self):
