@@ -130,9 +130,9 @@ class VacuumWorld2D(VacuumWorldMovementPentalty):
         self.worldWidth = worldWidth
 
         self.possibleActions = ["Right", "Left", "Up", "Down", "Suck", None]
-        self.timeSteps = 10
-        self.printStartWorld = True
-        self.printWorldsEachRound = True
+        self.timeSteps = 1000
+        self.printStartWorld = False
+        self.printWorldsEachRound = False
 
         if not startingWorld:
             self.InitialWorld = []
@@ -274,11 +274,17 @@ class VacuumAgentReflex2D(VacuumAgentReflex):
         if percept[1] == 0:
             return "Suck"
         else:
-            tile = percept[0]
-            if tile not in self.reactions.keys():
-                self.reactions[tile] = random.randint(0, 3)
-            return self.movement[self.reactions[tile]]
+            return self.getAction(percept)
 
+    def getAction(self, percept):
+        tile = percept[0]
+        if tile not in self.reactions.keys():
+            self.reactions[tile] = random.randint(0, 3)
+        return self.movement[self.reactions[tile]]
+
+class VacuumAgentReflex2D_Randomized(VacuumAgentReflex2D):
+    def getAction(self, percept):
+        return self.movement[random.randint(0, 3)]
 
 vacuum = VacuumAgentReflex()
 environment11 = VacuumWorld([1,1])
@@ -294,4 +300,5 @@ environmentPenalty10 = VacuumWorldMovementPentalty([1,0])
 environmentPenalty00 = VacuumWorldMovementPentalty([0,0])
 
 vacuum2D = VacuumAgentReflex2D()
+vacuumRand = VacuumAgentReflex2D_Randomized()
 environment2D = VacuumWorld2D(10, 10)
