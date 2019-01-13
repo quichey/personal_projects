@@ -11,6 +11,7 @@ class VacuumWorld:
         '''
         self.possibleActions = ["Right", "Left", "Suck", None]
         self.timeSteps = 1000
+        self.printStartWorld = False
 
         if not startingWorld:
             self.InitialWorld = []
@@ -57,6 +58,10 @@ class VacuumWorld:
 
         agent.initializeState()
 
+        if self.printStartWorld:
+            print("\n")
+            self.printWorld()
+
     def initializePosition(self, start):
         if not start:
             # 0 means tile A; 1 means tile B
@@ -95,6 +100,9 @@ class VacuumWorld:
 
         return percept
 
+    def printWorld(self):
+        return
+
 class VacuumWorldMovementPentalty(VacuumWorld):
     def processAction(self, agentAction):
         if self.isValidMove(agentAction):
@@ -118,6 +126,8 @@ class VacuumWorld2D(VacuumWorldMovementPentalty):
 
         self.possibleActions = ["Right", "Left", "Up", "Down", "Suck", None]
         self.timeSteps = 10
+        self.printStartWorld = True
+        self.printWorldsEachRound = True
 
         if not startingWorld:
             self.InitialWorld = []
@@ -186,7 +196,16 @@ class VacuumWorld2D(VacuumWorldMovementPentalty):
             self.agentPosLen -= 1
         elif agentAction == "Down" and self.canMoveDown():
             self.agentPosLen += 1
+        if self.printWorldsEachRound:
+            print("\nAgent Action: {0}\n".format(agentAction))
+            self.printWorld()
+            print("\n")
 
+    def printWorld(self):
+        worldWithAgent = copy.deepcopy(self.world)
+        worldWithAgent[self.agentPosLen][self.agentPosWid] = 3
+        for row in worldWithAgent:
+            print(row)
 
 class VacuumAgentReflex:
     def initializeState(self):
@@ -219,6 +238,13 @@ class VacuumAgentModelBased(VacuumAgentReflex):
             return "Left"
         else:
             return None
+
+class VacuumAgentReflex2D(VacuumAgentReflex):
+    def initializeState(self):
+        self.reactions = {}
+
+    def program(self, percept):
+
 
 
 vacuum = VacuumAgentReflex()
