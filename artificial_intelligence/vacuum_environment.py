@@ -15,8 +15,8 @@ class VacuumWorld:
 
         if not startingWorld:
             self.InitialWorld = []
-            self.InitialWorld[0] = random.randint(0, 2)
-            self.InitialWorld[1] = random.randint(0, 2)
+            self.InitialWorld[0] = random.randint(0, 1)
+            self.InitialWorld[1] = random.randint(0, 1)
         else:
             self.InitialWorld = copy.deepcopy(startingWorld)
 
@@ -59,7 +59,9 @@ class VacuumWorld:
         agent.initializeState()
 
         if self.printStartWorld:
-            print("\n")
+            print("\nInitial World:\n")
+            self.printInitialWorld()
+            print("\nInitial World with agent:\n")
             self.printWorld()
 
     def initializePosition(self, start):
@@ -71,7 +73,7 @@ class VacuumWorld:
             self.setToInputStart(start)
 
     def setValidRandomPosition(self):
-        self.agentPosition = random.randint(0, 2)
+        self.agentPosition = random.randint(0, 1)
 
     def validateStartPosition(self, start):
         assert (start == "A") or (start == "B"), "Starting tile must be \'A\' of \'B\'"
@@ -99,6 +101,9 @@ class VacuumWorld:
                 percept.append("Dirty")
 
         return percept
+
+    def printInitialWorld(self):
+        return
 
     def printWorld(self):
         return
@@ -135,7 +140,7 @@ class VacuumWorld2D(VacuumWorldMovementPentalty):
                 row = []
                 for _ in range(worldWidth):
                     #0 means dirty, 1 means clean, 2 means obstacle
-                    row.append(random.randint(0, 3))
+                    row.append(random.randint(0, 2))
                 self.InitialWorld.append(row)
         else:
             self.InitialWorld = copy.deepcopy(startingWorld)
@@ -146,8 +151,8 @@ class VacuumWorld2D(VacuumWorldMovementPentalty):
             self.setRandomPosition()
 
     def setRandomPosition(self):
-        self.agentPosLen = random.randint(0, self.worldLength)
-        self.agentPosWid = random.randint(0, self.worldWidth)
+        self.agentPosLen = random.randint(0, self.worldLength - 1)
+        self.agentPosWid = random.randint(0, self.worldWidth - 1)
 
     def validateStartPosition(self, start):
         assert isinstance(start, list) and (len(start) == 2), "Invalid format for starting tile"
@@ -201,6 +206,10 @@ class VacuumWorld2D(VacuumWorldMovementPentalty):
             self.printWorld()
             print("\n")
 
+    def printInitialWorld(self):
+        for row in self.world:
+            print(row)
+
     def printWorld(self):
         worldWithAgent = copy.deepcopy(self.world)
         worldWithAgent[self.agentPosLen][self.agentPosWid] = 3
@@ -209,6 +218,14 @@ class VacuumWorld2D(VacuumWorldMovementPentalty):
 
     def perceive(self):
         return [(self.agentPosLen, self.agentPosWid), self.world[self.agentPosLen][self.agentPosWid]]
+
+    def numCleanSquares(self):
+        total = 0
+        for row in self.world:
+            for tile in row:
+                if tile == 1:
+                    total += 1
+        return total
 
 class VacuumAgentReflex:
     def initializeState(self):
@@ -259,7 +276,7 @@ class VacuumAgentReflex2D(VacuumAgentReflex):
         else:
             tile = percept[0]
             if tile not in self.reactions.keys():
-                self.reactions[tile] = random.randint(0, 4)
+                self.reactions[tile] = random.randint(0, 3)
             return self.movement[self.reactions[tile]]
 
 
