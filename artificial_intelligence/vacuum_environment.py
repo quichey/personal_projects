@@ -207,6 +207,9 @@ class VacuumWorld2D(VacuumWorldMovementPentalty):
         for row in worldWithAgent:
             print(row)
 
+    def perceive(self):
+        return [(self.agentPosLen, self.agentPosWid), self.world[self.agentPosLen][self.agentPosWid]]
+
 class VacuumAgentReflex:
     def initializeState(self):
         return
@@ -242,9 +245,22 @@ class VacuumAgentModelBased(VacuumAgentReflex):
 class VacuumAgentReflex2D(VacuumAgentReflex):
     def initializeState(self):
         self.reactions = {}
+        self.movement = {
+            0: "Up",
+            1: "Right",
+            2: "Down",
+            3: "Left"
+        }
 
     def program(self, percept):
-
+        assert percept[1] in [0, 1], "Percept should be 0 or 1, but is: {0}".format(percept[1])
+        if percept[1] == 0:
+            return "Suck"
+        else:
+            tile = percept[0]
+            if tile not in self.reactions.keys():
+                self.reactions[tile] = random.randint(0, 4)
+            return self.movement[self.reactions[tile]]
 
 
 vacuum = VacuumAgentReflex()
@@ -260,4 +276,5 @@ environmentPenalty01 = VacuumWorldMovementPentalty([0,1])
 environmentPenalty10 = VacuumWorldMovementPentalty([1,0])
 environmentPenalty00 = VacuumWorldMovementPentalty([0,0])
 
-environmentPenalty00.run(vacuum, A)
+vacuum2D = VacuumAgentReflex2D()
+environment2D = VacuumWorld2D(10, 10)
